@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const Product = require('./models/product.model'); 
+const Product = require("./models/product.model");
 app.use(express.json());
 
 mongoose
@@ -21,6 +21,15 @@ app.listen(4000, () => {
 
 app.get("/", (req, res) => {
   res.send("Welcome to cluster");
+});
+
+app.get("/api/products", async(req, res) => {
+  try {
+    const products = await Product.find({});
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.post("/api/products", async (req, res) => {
