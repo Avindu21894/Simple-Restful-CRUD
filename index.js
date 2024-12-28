@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const Product = require("./models/product.model");
+
+// Middleware
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false})); // Allows to add using form format in API (Postman)
 
@@ -23,6 +26,8 @@ app.listen(4000, () => {
 app.get("/", (req, res) => {
   res.send("Welcome to cluster");
 });
+
+//APIs
 
 // Get all products
 
