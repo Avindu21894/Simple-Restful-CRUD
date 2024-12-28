@@ -38,7 +38,7 @@ app.get("/api/products", async(req, res) => {
 // Get product by id
 
 
-app.get("/api/products/:id", async(req,res) => {
+app.get("/api/product/:id", async(req,res) => {
   try {
     const {id} = req.params;
     const product = await Product.findById(id);
@@ -59,3 +59,21 @@ app.post("/api/products", async(req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+// Update a product
+
+app.put('/api/product/:id', async(req, res) => {
+try {
+  const {id} = req.params;
+  const product = await Product.findByIdAndUpdate(id, req.body);
+  if(!product){
+    res.status(404).json({ message: "Product not found"});
+  }
+  const updatedProduct = await Product.findById(id);
+  res.status(200).json(updatedProduct);
+} catch (error) {
+  res.status(500).json({ error: error.message });
+}
+});
+
+
